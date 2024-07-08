@@ -20,6 +20,7 @@ public abstract class ObjectPooler<T> : MonoBehaviour where T : MonoBehaviour
         {
             foreach(Pool<T> i in item.Group)
             {
+                _pools.Add(i.Tag, new Queue<T>());
                 for (int j = 0;  j < i.StartAmount;  j++)
                 {
                     T newObj = Instantiate(i.Object, transform.position, transform.rotation, transform);

@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject Player;
 
+    [SerializeField] private HealthPooler _op;
+
     public void Awake()
     {
         Instance = this;
@@ -16,4 +18,8 @@ public class GameManager : MonoBehaviour
         return Player;
     }
 
+    public HealthPooler GetHealthPooler()
+    {
+        return _op;
+    }
 }
