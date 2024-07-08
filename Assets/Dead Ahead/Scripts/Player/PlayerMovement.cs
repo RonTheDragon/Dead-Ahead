@@ -1,21 +1,18 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Movement
 {
     [SerializeField] private Camera _camera;
-    [SerializeField] private Rigidbody2D _rigidbody2D;
-    [SerializeField] private float _movementSpeed;
-    [SerializeField] private float _steerSpeed;
     [SerializeField] private float _cameraDistance;
     [SerializeField] private RectTransform _playerScrollInput;
-    private Transform _camTransform, _playerTransform;
+    private Transform _camTransform;
 
     // Start is called before the first frame update
-    void Start()
+    new protected void Start()
     {
+        base.Start();
         _camTransform = _camera.transform;
-        _playerTransform = _rigidbody2D.transform;
-        Movement();
+        Movements();
     }
 
     // Update is called once per frame
@@ -24,30 +21,25 @@ public class PlayerMovement : MonoBehaviour
         CameraFollow();
     }
 
-    private void FixedUpdate()
+    new protected void FixedUpdate()
     {
-        StuckCheck();
-        Movement();
+        base.FixedUpdate();
     }
 
 
-    private void Movement()
+    protected override void Movements()
     {
         _rigidbody2D.velocity = new Vector2(_movementSpeed, GetPlayerScrollInput() * _steerSpeed);
     }
 
-    private void StuckCheck()
+    protected override void GotStuck()
     {
-        if (_rigidbody2D.velocity.x==0)
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
-
 
     private void CameraFollow()
     {
-        _camera.transform.position = new Vector3(_playerTransform.position.x + _cameraDistance, _camTransform.position.y, _camTransform.position.z);
+        _camera.transform.position = new Vector3(_movingTransform.position.x + _cameraDistance, _camTransform.position.y, _camTransform.position.z);
     }
 
     private float GetPlayerScrollInput()
