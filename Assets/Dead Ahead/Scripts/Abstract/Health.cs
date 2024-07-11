@@ -1,16 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Health : MonoBehaviour
 {
-    [SerializeField][ReadOnly] private float _currentHealth;
-    [SerializeField] private float _maxHealth;
-
+    [SerializeField][ReadOnly] protected float _currentHealth;
+    [SerializeField] protected float _maxHealth;
+    protected bool _isDead;
 
     public virtual void Spawn()
     {
+        _isDead=false;
         _currentHealth = _maxHealth;
     }
-    public abstract void Die();
+    public virtual void Die()
+    {
+        _isDead=true;
+    }
+    public bool IsDead()
+    {
+        return _isDead;
+    }
 }

@@ -737,7 +737,7 @@ GameObject:
   - component: {fileID: 1710885728}
   - component: {fileID: 1710885731}
   - component: {fileID: 1710885730}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1031,11 +1031,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2074983147 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1996448355816522928, guid: bd5e864b50a395041af3ac6bda927c93, type: 3}
+--- !u!114 &2074983150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4882673728245464702, guid: bd5e864b50a395041af3ac6bda927c93, type: 3}
   m_PrefabInstance: {fileID: 7908358979466097843}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2712b2498234f34397864563111a92d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7150153315453745806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1051,7 +1057,7 @@ PrefabInstance:
     - target: {fileID: 5455850953123253515, guid: b4deda64b8baa744087dce1819222835, type: 3}
       propertyPath: Player
       value: 
-      objectReference: {fileID: 2074983147}
+      objectReference: {fileID: 2074983150}
     - target: {fileID: 8402684157243647855, guid: b4deda64b8baa744087dce1819222835, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

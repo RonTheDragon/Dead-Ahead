@@ -60,11 +60,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add64203f47069547ba9489c89cfa40c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyTag: Enemy
+  _spawners:
+  - EnemyTag: Enemy
+    MinRandomTime: 2
+    MaxRandomTime: 5
+    FirstTimeDelay: 0
   _distanceBehindPlayer: 5
-  _maxY: -2.7
   _minY: 1.4
-  _tempCooldown: 1
+  _maxY: -2.7
 --- !u!1 &8074404126307287054
 GameObject:
   m_ObjectHideFlags: 0

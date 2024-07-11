@@ -16,19 +16,8 @@ public abstract class Movement : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        StuckCheck();
         Movements();
     }
 
     protected abstract void Movements();
-
-    protected void StuckCheck()
-    {
-        if (_rigidbody2D.velocity.x == 0)
-        {
-            GotStuck();
-        }
-    }
-
-    protected abstract void GotStuck();
 }

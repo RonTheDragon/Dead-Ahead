@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7216280779877154837}
   - component: {fileID: 7975231596138000012}
   - component: {fileID: 4670088297412820887}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 400dbf0b8f8d3c448a2fc3a5e83d5b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 7.1
+  _movementSpeed: 9
   _steerSpeed: 1
   _rigidbody2D: {fileID: 7216280779877154837}
 --- !u!50 &7216280779877154837
@@ -189,3 +189,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentHealth: 0
   _maxHealth: 1
+  _deathLayerMask:
+    serializedVersion: 2
+    m_Bits: 1

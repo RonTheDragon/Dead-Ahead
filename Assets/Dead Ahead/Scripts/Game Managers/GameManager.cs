@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     [HideInInspector] public static GameManager Instance;
 
-    [SerializeField] private GameObject Player;
+    [SerializeField] private PlayerHealth Player;
 
     [SerializeField] private HealthPooler _op;
 
@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    public GameObject GetPlayer()
+    public PlayerHealth GetPlayerHealth()
     {
         return Player;
     }

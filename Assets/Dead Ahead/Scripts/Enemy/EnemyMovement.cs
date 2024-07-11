@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : Movement
@@ -13,7 +11,7 @@ public class EnemyMovement : Movement
     {
         base.Start();
         _gm = GameManager.Instance;
-        _player = _gm.GetPlayer().transform;
+        _player = _gm.GetPlayerHealth().transform;
         Movements();
     }
 
@@ -21,11 +19,6 @@ public class EnemyMovement : Movement
     {
         if (_player == null) return 0;
         return _player.position.y - _movingTransform.position.y;  
-    }
-
-    protected override void GotStuck()
-    {
-        _enemyHealth.Die();
     }
 
     protected override void Movements()

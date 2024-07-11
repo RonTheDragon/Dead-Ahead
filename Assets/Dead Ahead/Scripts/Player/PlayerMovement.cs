@@ -6,6 +6,7 @@ public class PlayerMovement : Movement
     [SerializeField] private float _cameraDistance;
     [SerializeField] private RectTransform _playerScrollInput;
     private Transform _camTransform;
+    private PlayerHealth _playerHealth => GetComponent<PlayerHealth>();
 
     // Start is called before the first frame update
     new protected void Start()
@@ -23,6 +24,7 @@ public class PlayerMovement : Movement
 
     new protected void FixedUpdate()
     {
+        StuckCheck();
         base.FixedUpdate();
     }
 
@@ -32,9 +34,17 @@ public class PlayerMovement : Movement
         _rigidbody2D.velocity = new Vector2(_movementSpeed, GetPlayerScrollInput() * _steerSpeed);
     }
 
-    protected override void GotStuck()
+    private void GotStuck()
     {
-        Destroy(gameObject);
+        _playerHealth.Die();  
+    }
+
+    private void StuckCheck()
+    {
+        if (_rigidbody2D.velocity.x == 0)
+        {
+            GotStuck();
+        }
     }
 
     private void CameraFollow()
