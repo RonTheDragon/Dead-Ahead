@@ -4,22 +4,19 @@ public class GameManager : MonoBehaviour
 {
     [HideInInspector] public static GameManager Instance;
 
-    [SerializeField] private PlayerHealth Player;
+    [SerializeField] private PlayerRefs Player;
 
-    [SerializeField] private HealthPooler _op;
+    [SerializeField] private HealthPooler _hp;
+
+    [SerializeField] private ChunksPooler _cp;
 
     public void Awake()
     {
         Instance = this;
     }
 
-    public PlayerHealth GetPlayerHealth()
-    {
-        return Player;
-    }
+    public PlayerRefs PlayerRefs => Player;
+    public HealthPooler HealthPooler => _hp;
+    public ChunksPooler ChunksPooler => _cp;
 
-    public HealthPooler GetHealthPooler()
-    {
-        return _op;
-    }
 }

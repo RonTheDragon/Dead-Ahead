@@ -6,11 +6,13 @@ public class EnemySpawner : MonoBehaviour
 {
     private GameManager _gameManager;
     private HealthPooler _pool;
-    private Transform _playerPos;
+    private PlayerRefs _playerRefs;
     private PlayerHealth _playerHealth;
+    private Camera _playerCam;
+    
 
     [SerializeField] private List<SpawnerType> _spawners;
-    [SerializeField] private float _distanceBehindPlayer, _minY, _maxY;
+    [SerializeField] private float _minY, _maxY;
 
 
 
@@ -18,9 +20,10 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         _gameManager = GameManager.Instance;
-        _pool = _gameManager.GetHealthPooler();
-        _playerHealth = _gameManager.GetPlayerHealth();
-        _playerPos = _playerHealth.transform;
+        _pool = _gameManager.HealthPooler;
+        _playerRefs = _gameManager.PlayerRefs;
+        _playerHealth = _playerRefs.PlayerHealth;
+        _playerCam = _playerRefs.Camera;
 
         StartAllSpawners();
     }
@@ -45,9 +48,15 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(SpawnerType spawner)
     {
-        Vector2 spawnPos = new Vector2(_playerPos.position.x-_distanceBehindPlayer,Random.Range(_minY, _maxY));
-        _pool.CreateOrSpawnFromPool(spawner.EnemyTag, spawnPos, Quaternion.identity,_pool.transform).Spawn();
+        // Get the left edge position in world coordinates
+        float leftEdgeX = _playerCam.ScreenToWorldPoint(new Vector3(0, 0, 0)).x - 1f; // Subtract a small value for offset
+        float randomY = Random.Range(_minY, _maxY);
+
+        Vector2 spawnPos = new Vector2(leftEdgeX, randomY);
+
+        _pool.CreateOrSpawnFromPool(spawner.EnemyTag, spawnPos, Quaternion.identity, _pool.transform).Spawn();
     }
+
 
     [System.Serializable]
     private class SpawnerType

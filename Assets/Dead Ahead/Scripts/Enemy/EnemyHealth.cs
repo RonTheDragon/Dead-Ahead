@@ -11,7 +11,7 @@ public class EnemyHealth : Health
     private void Start()
     {
         _gameManager = GameManager.Instance;
-        _playerHealth = _gameManager.GetPlayerHealth();
+        _playerHealth = _gameManager.PlayerRefs.PlayerHealth;
     }
 
     public override void Spawn()

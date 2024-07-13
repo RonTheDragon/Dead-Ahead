@@ -1,18 +1,25 @@
 using UnityEngine;
 
-public class PlayerMovement : Movement
+public class PlayerMovement : Movement , IPlayerComponent
 {
-    [SerializeField] private Camera _camera;
     [SerializeField] private float _cameraDistance;
     [SerializeField] private RectTransform _playerScrollInput;
     private Transform _camTransform;
-    private PlayerHealth _playerHealth => GetComponent<PlayerHealth>();
+    private PlayerHealth _playerHealth;
+    private Rigidbody2D _rigidbody2D;
+    private Camera _camera;
+    private float _defaultSpeed;
+    [SerializeField] private float _sprintBoost, _sprintLose, _cameraSprint;
+    private bool _isSprinting, _moved;
 
-    // Start is called before the first frame update
-    new protected void Start()
+    public void PlayerStart(PlayerRefs refs)
     {
-        base.Start();
+        _rigidbody2D = refs.Rigidbody2D;
+        _playerHealth = refs.PlayerHealth;
+        _camera = refs.Camera;
+        _movingTransform = refs.PlayerTransform;
         _camTransform = _camera.transform;
+        _defaultSpeed = _movementSpeed;
         Movements();
     }
 
@@ -20,6 +27,7 @@ public class PlayerMovement : Movement
     void Update()
     {
         CameraFollow();
+        HandleSprints();
     }
 
     new protected void FixedUpdate()
@@ -34,6 +42,22 @@ public class PlayerMovement : Movement
         _rigidbody2D.velocity = new Vector2(_movementSpeed, GetPlayerScrollInput() * _steerSpeed);
     }
 
+    private void HandleSprints()
+    {
+        if (_isSprinting)
+        {
+            _movementSpeed += _sprintBoost * Time.deltaTime;
+        }
+        else
+        {
+            _movementSpeed -= _sprintLose * Time.deltaTime;
+            if (_movementSpeed< _defaultSpeed)
+            {
+                _movementSpeed = _defaultSpeed;
+            }
+        }
+    }
+
     private void GotStuck()
     {
         _playerHealth.Die();  
@@ -41,7 +65,7 @@ public class PlayerMovement : Movement
 
     private void StuckCheck()
     {
-        if (_rigidbody2D.velocity.x == 0)
+        if (_rigidbody2D.velocity.x == 0 )
         {
             GotStuck();
         }
@@ -49,7 +73,7 @@ public class PlayerMovement : Movement
 
     private void CameraFollow()
     {
-        _camera.transform.position = new Vector3(_movingTransform.position.x + _cameraDistance, _camTransform.position.y, _camTransform.position.z);
+        _camTransform.position = new Vector3(_movingTransform.position.x + (_cameraDistance - ((_movementSpeed-_defaultSpeed)*_cameraSprint)), _camTransform.position.y, _camTransform.position.z);
     }
 
     private float GetPlayerScrollInput()
@@ -58,5 +82,15 @@ public class PlayerMovement : Movement
             return 0;
 
         return _playerScrollInput.localPosition.y;
+    }
+
+    public void OnSprintPress()
+    {
+        _isSprinting=true;
+    }
+
+    public void OnSprintRelease()
+    {
+        _isSprinting = false;
     }
 }

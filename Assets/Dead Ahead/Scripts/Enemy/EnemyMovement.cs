@@ -3,15 +3,15 @@ using UnityEngine;
 public class EnemyMovement : Movement
 {
     private EnemyHealth _enemyHealth => GetComponent<EnemyHealth>();
-
+    private Rigidbody2D _rigidbody2D => GetComponent<Rigidbody2D>();
     private GameManager _gm;
     private Transform _player;
     
-    new protected void Start()
+    private void Start()
     {
-        base.Start();
+        _movingTransform = _rigidbody2D.transform;
         _gm = GameManager.Instance;
-        _player = _gm.GetPlayerHealth().transform;
+        _player = _gm.PlayerRefs.transform;
         Movements();
     }
 
