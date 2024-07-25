@@ -10,7 +10,7 @@ public class PlayerMovement : Movement , IPlayerComponent
     private Camera _camera;
     private float _defaultSpeed;
     [SerializeField] private float _sprintBoost, _sprintLose, _cameraSprint;
-    private bool _isSprinting, _moved;
+    private bool _isSprinting, _moved, _isDead;
 
     public void PlayerStart(PlayerRefs refs)
     {
@@ -26,6 +26,7 @@ public class PlayerMovement : Movement , IPlayerComponent
     // Update is called once per frame
     void Update()
     {
+        if (_isDead) return;
         CameraFollow();
         HandleSprints();
     }
@@ -92,5 +93,12 @@ public class PlayerMovement : Movement , IPlayerComponent
     public void OnSprintRelease()
     {
         _isSprinting = false;
+    }
+
+    public void Die()
+    {
+        _movementSpeed = 0;
+        _steerSpeed = 0;
+        _isDead = true;
     }
 }
