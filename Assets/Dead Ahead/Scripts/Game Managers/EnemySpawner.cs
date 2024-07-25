@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator StartSpawner(SpawnerType spawner)
     {
         yield return new WaitForSeconds(spawner.FirstTimeDelay);
-        while (!_playerHealth.IsDead())
+        while (!_playerHealth.IsDead)
         {
             yield return new WaitForSeconds(Random.Range(spawner.MinRandomTime, spawner.MaxRandomTime));
             SpawnEnemy(spawner);

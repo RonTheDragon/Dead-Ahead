@@ -15,8 +15,18 @@ public abstract class Health : MonoBehaviour
     {
         _isDead=true;
     }
-    public bool IsDead()
+
+    public bool IsDead => _isDead;
+
+    public void TakeDamage(float damage)
     {
-        return _isDead;
+        if (!_isDead)
+        {
+            _currentHealth -= damage;
+            if (_currentHealth <= 0)
+            {
+                Die();
+            }
+        }
     }
 }

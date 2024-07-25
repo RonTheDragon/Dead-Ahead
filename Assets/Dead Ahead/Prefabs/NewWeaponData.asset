@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d56c6ef5f006f4bbafdbe275dd6358, type: 3}
+  m_Name: NewWeaponData
+  m_EditorClassIdentifier: 
+  WeaponName: Pistol
+  MaxAmmo: 10
+  ShootCooldown: 0.5
+  ReloadTime: 3
+  Damage: 3
+  WeaponPrefab: {fileID: 7304234794001780715, guid: 25b1fb10ff2c4b849be0d910ef0a8fd2, type: 3}
