@@ -85,14 +85,9 @@ public class PlayerMovement : Movement , IPlayerComponent
         return _playerScrollInput.localPosition.y;
     }
 
-    public void OnSprintPress()
+    public void SetSprint(bool Sprinting)
     {
-        _isSprinting=true;
-    }
-
-    public void OnSprintRelease()
-    {
-        _isSprinting = false;
+        _isSprinting= Sprinting;
     }
 
     public void Die()
@@ -101,4 +96,6 @@ public class PlayerMovement : Movement , IPlayerComponent
         _steerSpeed = 0;
         _isDead = true;
     }
+
+    public bool IsSprinting => _isSprinting;
 }

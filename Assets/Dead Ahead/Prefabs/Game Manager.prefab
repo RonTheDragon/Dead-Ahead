@@ -47,9 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd63975cd91ccf641a95c5a47d4a3cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  _playerRefs: {fileID: 0}
+  _playerCamera: {fileID: 0}
   _hp: {fileID: 7636952513482613784}
   _cp: {fileID: 1017921780056221173}
+  _dcp: {fileID: 4683516985154256921}
 --- !u!114 &3399662303463319873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +97,7 @@ GameObject:
   - component: {fileID: 448483291434817802}
   - component: {fileID: 7636952513482613784}
   - component: {fileID: 1017921780056221173}
+  - component: {fileID: 4683516985154256921}
   m_Layer: 0
   m_Name: ObjectPoolers
   m_TagString: Untagged
@@ -156,3 +159,21 @@ MonoBehaviour:
     - Tag: map2
       Object: {fileID: 1503463554894452353, guid: ea3a12e78baf1d84c964bd86cceef7ca, type: 3}
       StartAmount: 2
+--- !u!114 &4683516985154256921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8074404126307287054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20406cc3c7f0dbc45aa5c5f1e8f9104c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolGroups:
+  - Name: DamageCounter
+    Group:
+    - Tag: DamageCounter
+      Object: {fileID: 7262077652521039530, guid: c87c97943ee7304468a09a7f8415ae56, type: 3}
+      StartAmount: 0

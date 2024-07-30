@@ -51,7 +51,7 @@ public abstract class ObjectPooler<T> : MonoBehaviour where T : MonoBehaviour
         _pools[tag].Enqueue(obj);
         obj.transform.position = position;
         obj.transform.rotation = rotation;
-        obj.transform.parent = parent;
+        obj.transform.SetParent(parent);
         obj.gameObject.SetActive(true);
         return obj;
     }

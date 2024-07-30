@@ -392,6 +392,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0495901}
   m_EdgeRadius: 0
+--- !u!20 &1877300004 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 922030264054686010, guid: bd5e864b50a395041af3ac6bda927c93, type: 3}
+  m_PrefabInstance: {fileID: 7908358979466097843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7150153315453745806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -405,9 +410,13 @@ PrefabInstance:
       value: Game Manager
       objectReference: {fileID: 0}
     - target: {fileID: 5455850953123253515, guid: b4deda64b8baa744087dce1819222835, type: 3}
-      propertyPath: Player
+      propertyPath: _playerRefs
       value: 
       objectReference: {fileID: 1427323906}
+    - target: {fileID: 5455850953123253515, guid: b4deda64b8baa744087dce1819222835, type: 3}
+      propertyPath: _playerCamera
+      value: 
+      objectReference: {fileID: 1877300004}
     - target: {fileID: 8402684157243647855, guid: b4deda64b8baa744087dce1819222835, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

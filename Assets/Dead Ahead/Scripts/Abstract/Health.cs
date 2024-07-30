@@ -18,11 +18,12 @@ public abstract class Health : MonoBehaviour
 
     public bool IsDead => _isDead;
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         if (!_isDead)
         {
             _currentHealth -= damage;
+
             if (_currentHealth <= 0)
             {
                 Die();

@@ -7,11 +7,13 @@ public class EnemyHealth : Health
 
     private GameManager _gameManager;
     private PlayerHealth _playerHealth;
+    private DamageCounterPooler _damageCounterPooler;
 
     private void Start()
     {
         _gameManager = GameManager.Instance;
         _playerHealth = _gameManager.PlayerRefs.PlayerHealth;
+        _damageCounterPooler = _gameManager.DamageCounterPooler;
     }
 
     public override void Spawn()
@@ -41,5 +43,14 @@ public class EnemyHealth : Health
                 Die();
             }
         }
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        if (!_isDead)
+        {
+            _damageCounterPooler.CreateOrSpawnFromPool("DamageCounter", transform.position,Quaternion.identity,_gameManager.PlayerCamera.transform).Display((int)damage);
+        }
+        base.TakeDamage(damage);
     }
 }
