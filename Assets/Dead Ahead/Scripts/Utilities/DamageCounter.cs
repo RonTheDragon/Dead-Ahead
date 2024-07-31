@@ -10,7 +10,7 @@ public class DamageCounter : MonoBehaviour
     {
         _text.text = damage.ToString();
         _animator.SetTrigger("Display");
-        Invoke(nameof(Disapear), 1);
+        Invoke(nameof(Disapear), 2);
     }
 
     private void Disapear()

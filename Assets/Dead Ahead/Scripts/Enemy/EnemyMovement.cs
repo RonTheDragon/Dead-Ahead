@@ -11,7 +11,7 @@ public class EnemyMovement : Movement
     {
         _movingTransform = _rigidbody2D.transform;
         _gm = GameManager.Instance;
-        _player = _gm.PlayerRefs.transform;
+        _player = _gm.PlayerRefs.PlayerTransform;
         Movements();
     }
 
