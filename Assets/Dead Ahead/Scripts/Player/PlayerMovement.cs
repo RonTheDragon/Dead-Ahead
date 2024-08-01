@@ -27,8 +27,13 @@ public class PlayerMovement : Movement , IPlayerComponent
     void Update()
     {
         if (_isDead) return;
-        CameraFollow();
         HandleSprints();
+    }
+
+    private void LateUpdate()
+    {
+        if (_isDead) return;
+        CameraFollow();
     }
 
     new protected void FixedUpdate()

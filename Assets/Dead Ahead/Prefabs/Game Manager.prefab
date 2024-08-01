@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5455850953123253515}
   - component: {fileID: 3399662303463319873}
   - component: {fileID: 3038766550629836897}
+  - component: {fileID: 4687271848681627567}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -48,6 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerRefs: {fileID: 0}
+  _saveSystem: {fileID: 4687271848681627567}
+  _weaponsList: {fileID: 11400000, guid: d258222488255bb4f85bc1257a799564, type: 2}
   _playerCamera: {fileID: 0}
   _hp: {fileID: 7636952513482613784}
   _cp: {fileID: 1017921780056221173}
@@ -86,6 +89,18 @@ MonoBehaviour:
   _chunks:
   - map
   - map2
+--- !u!114 &4687271848681627567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5406605921843601588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fcf404408f9c94b884f45f04f401ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8074404126307287054
 GameObject:
   m_ObjectHideFlags: 0

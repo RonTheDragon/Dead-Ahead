@@ -13,16 +13,18 @@ public class PlayerWeapon : MonoBehaviour
     private LayerMask _layerMask;
     private Image _reloadImage;
     private TMP_Text _ammoText;
+    private int _weaponLevel;
 
-    public void SetupWeapon(Transform shootingFrom,LayerMask attackLayerMask,Image reloadImage, TMP_Text ammoText)
+    public void SetupWeapon(PlayerCombat playerCombat)
     {
-        _ammo = _weaponData.MaxAmmo;
+        _weaponLevel = playerCombat.WeaponLevel;
+        _ammo = _weaponData.Upgrades[_weaponLevel].MaxAmmo;
         _isShotCooldown = false;
-        _shootingFrom = shootingFrom;
-        _layerMask = attackLayerMask;
+        _shootingFrom = playerCombat.WeaponShootFrom;
+        _layerMask = playerCombat.AttackLayerMask;
 
-        _reloadImage = reloadImage;
-        _ammoText = ammoText;
+        _reloadImage = playerCombat.ReloadImage;
+        _ammoText = playerCombat.AmmoText;
         UpdateAmmoText();   
     }
 
@@ -39,11 +41,11 @@ public class PlayerWeapon : MonoBehaviour
             if (_ammo > 0)
             {
                 _isShotCooldown = true;
-                Invoke(nameof(LooseShotCooldown), _weaponData.ShootCooldown);
+                Invoke(nameof(LooseShotCooldown), _weaponData.Upgrades[_weaponLevel].ShootCooldown);
             }
             else
             {
-                Invoke(nameof(Reload), _weaponData.ReloadTime);
+                Invoke(nameof(Reload), _weaponData.Upgrades[_weaponLevel].ReloadTime);
                 StartCoroutine(nameof(Reload));
             }
             return true;
@@ -67,26 +69,26 @@ public class PlayerWeapon : MonoBehaviour
         if (hit == false) return;
         if (_layerMask == (_layerMask | (1 << hit.transform.gameObject.layer)))
         {
-            hit.transform.gameObject.GetComponent<Health>().TakeDamage(_weaponData.Damage);
+            hit.transform.gameObject.GetComponent<Health>().TakeDamage(_weaponData.Upgrades[_weaponLevel].Damage);
         }
     }
 
     private IEnumerator Reload()
     {
         float n = 0;
-        while (n< _weaponData.ReloadTime)
+        while (n< _weaponData.Upgrades[_weaponLevel].ReloadTime)
         {
             yield return null;
             n += Time.deltaTime;
-            _reloadImage.fillAmount = n/_weaponData.ReloadTime;
+            _reloadImage.fillAmount = n/_weaponData.Upgrades[_weaponLevel].ReloadTime;
         }
         _reloadImage.fillAmount = 0;
-        _ammo = _weaponData.MaxAmmo;
+        _ammo = _weaponData.Upgrades[_weaponLevel].MaxAmmo;
         UpdateAmmoText();
     }
 
     private void UpdateAmmoText()
     {
-        _ammoText.text = $"{_ammo} / {_weaponData.MaxAmmo}";
+        _ammoText.text = $"{_ammo} / {_weaponData.Upgrades[_weaponLevel].MaxAmmo}";
     }
 }

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d56c6ef5f006f4bbafdbe275dd6358, type: 3}
+  m_Name: Uzi
+  m_EditorClassIdentifier: 
+  WeaponName: Uzi
+  WeaponPrefab: {fileID: 7304234794001780715, guid: 0a9292c9fc21d9040ab3fb5131e7313b, type: 3}
+  Upgrades:
+  - Cost: 5
+    MaxAmmo: 20
+    ShootCooldown: 0.3
+    ReloadTime: 3
+    Damage: 1
+  - Cost: 10
+    MaxAmmo: 30
+    ShootCooldown: 0.25
+    ReloadTime: 3
+    Damage: 1
+  - Cost: 20
+    MaxAmmo: 40
+    ShootCooldown: 0.2
+    ReloadTime: 3
+    Damage: 1

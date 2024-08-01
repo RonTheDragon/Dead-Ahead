@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private PlayerRefs _playerRefs;
 
+    [SerializeField] private SaveSystem _saveSystem;
+
+    [SerializeField] private SOweaponsList _weaponsList;
+
     [SerializeField] private Camera _playerCamera;
 
     [SerializeField] private HealthPooler _hp;
@@ -13,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ChunksPooler _cp;
 
     [SerializeField] private DamageCounterPooler _dcp;
+    
 
     public void Awake()
     {
@@ -20,6 +25,8 @@ public class GameManager : MonoBehaviour
     }
 
     public PlayerRefs PlayerRefs => _playerRefs;
+    public SaveSystem SaveSystem => _saveSystem;
+    public SOweaponsList WeaponsList => _weaponsList;
     public HealthPooler HealthPooler => _hp;
     public ChunksPooler ChunksPooler => _cp;
     public DamageCounterPooler DamageCounterPooler => _dcp;

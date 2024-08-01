@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01d56c6ef5f006f4bbafdbe275dd6358, type: 3}
-  m_Name: NewWeaponData
+  m_Script: {fileID: 11500000, guid: 7cb2c95d23ad414469a19a93a7dc5c43, type: 3}
+  m_Name: NewWeaponsList
   m_EditorClassIdentifier: 
-  WeaponName: Pistol
-  MaxAmmo: 10
-  ShootCooldown: 0.5
-  ReloadTime: 3
-  Damage: 3
-  WeaponPrefab: {fileID: 7304234794001780715, guid: 25b1fb10ff2c4b849be0d910ef0a8fd2, type: 3}
+  Weapons:
+  - {fileID: 11400000, guid: 8fc7619acbf959f4b98b2558a6081d4c, type: 2}
+  - {fileID: 11400000, guid: da81197f670a11d479199a1a666142ee, type: 2}
