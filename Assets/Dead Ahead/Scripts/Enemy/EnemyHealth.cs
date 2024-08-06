@@ -45,6 +45,14 @@ public class EnemyHealth : Health
         }
     }
 
+    protected void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Ramp")
+        {
+                Die();
+        }
+    }
+
     public override void TakeDamage(float damage)
     {
         if (!_isDead)
