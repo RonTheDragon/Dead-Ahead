@@ -17,6 +17,8 @@ public class PlayerMovement : Movement , IPlayerComponent
     private float _currentJumpTime;
     [SerializeField] private float _maxY, _minY;
     private Collider2D _collider;
+    [SerializeField] private float _highGroundHeight, _bounceHeight;
+    private bool _bounceOnLand;
 
     public void PlayerStart(PlayerRefs refs)
     {
@@ -66,7 +68,7 @@ public class PlayerMovement : Movement , IPlayerComponent
                 transform.position.z
             );
         }
-
+        FixZ();
     }
 
     private void HandleSprints()
@@ -123,9 +125,9 @@ public class PlayerMovement : Movement , IPlayerComponent
         _isDead = true;
     }
 
-    public void Jump()
+    public void Jump(float mult = 1)
     {
-        _currentJumpTime = _jumpTime;
+        _currentJumpTime = _jumpTime * mult;
         _collider.enabled = false;
     }
 
@@ -151,14 +153,21 @@ public class PlayerMovement : Movement , IPlayerComponent
             {
                 if (colliderAtPosition.transform.tag == "HighGround")
                 {
-                    _playerShadow.localPosition = new Vector3(_playerShadow.localPosition.x, 0.55f, _playerShadow.localPosition.z);
+                    _playerShadow.localPosition = new Vector3(_playerShadow.localPosition.x, _highGroundHeight, _playerShadow.localPosition.z);
+                }
+
+                if (colliderAtPosition.transform.tag == "Bounce")
+                {
+                    _playerShadow.localPosition = new Vector3(_playerShadow.localPosition.x, _bounceHeight, _playerShadow.localPosition.z);
+                    _bounceOnLand = true;
                 }
             }
             else
             {
                 _playerShadow.localPosition = new Vector3(_playerShadow.localPosition.x, 0, _playerShadow.localPosition.z);
+                _bounceOnLand = false;
             }
-        }
+        } 
 
         if (_currentJumpTime == 0)
         {
@@ -171,6 +180,10 @@ public class PlayerMovement : Movement , IPlayerComponent
             else if (_playerBody.localPosition.y < _playerShadow.localPosition.y)
             {
                 _playerBody.localPosition = new Vector3(_playerBody.localPosition.x, _playerShadow.localPosition.y, _playerBody.localPosition.z);
+                if (_bounceOnLand)
+                {
+                    Jump(0.5f);
+                }
             }
         }
     }

@@ -13,5 +13,11 @@ public abstract class Movement : MonoBehaviour
         Movements();
     }
 
+    protected void FixZ()
+    {
+        if (_movingTransform != null)
+        _movingTransform.position = new Vector3(_movingTransform.position.x, _movingTransform.position.y, _movingTransform.position.y);
+    }
+
     protected abstract void Movements();
 }

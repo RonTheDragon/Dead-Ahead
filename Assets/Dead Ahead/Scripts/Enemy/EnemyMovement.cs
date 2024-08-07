@@ -25,6 +25,7 @@ public class EnemyMovement : Movement
     {
         float dir = Mathf.Clamp(GetPlayerDirection(),-1,1);
         _rigidbody2D.velocity = new Vector2(_movementSpeed, dir * _steerSpeed);
+        FixZ();
     }
 
     public void Spawn()
