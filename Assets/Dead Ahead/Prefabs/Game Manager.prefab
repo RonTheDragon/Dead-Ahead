@@ -153,6 +153,11 @@ MonoBehaviour:
     - Tag: Enemy
       Object: {fileID: 4670088297412820887, guid: 56b79921eea44a8478827b685ca7f5c9, type: 3}
       StartAmount: 5
+  - Name: Lazy Enemies
+    Group:
+    - Tag: LazyEnemy
+      Object: {fileID: 9185447678707572463, guid: 014ea338dac511541a00f4d686669a2b, type: 3}
+      StartAmount: 0
 --- !u!114 &1017921780056221173
 MonoBehaviour:
   m_ObjectHideFlags: 0
