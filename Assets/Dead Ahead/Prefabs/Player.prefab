@@ -749,7 +749,7 @@ MonoBehaviour:
   _weaponShootFrom: {fileID: 3841823909652102429}
   _attackLayerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 9
   _reloadImage: {fileID: 841737636845071465}
   _ammoText: {fileID: 3127380986496985765}
 --- !u!50 &3659581972963693945

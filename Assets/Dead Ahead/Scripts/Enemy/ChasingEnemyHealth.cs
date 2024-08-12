@@ -1,32 +1,23 @@
 using UnityEngine;
 
-public class ChasingEnemyHealth : Health
+public class ChasingEnemyHealth : EnemyHealth
 {
     [SerializeField] private LayerMask _deathLayerMask;
     private EnemyMovement _enemyMovement => GetComponent<EnemyMovement>();
 
-    private GameManager _gameManager;
     private PlayerHealth _playerHealth;
-    private DamageCounterPooler _damageCounterPooler;
-    [SerializeField] private Animator _animator;
 
-    private void Start()
+    protected new void Start()
     {
-        _gameManager = GameManager.Instance;
+        base.Start();
         _playerHealth = _gameManager.PlayerRefs.PlayerHealth;
-        _damageCounterPooler = _gameManager.DamageCounterPooler;
     }
 
     public override void Spawn()
     {
         base.Spawn();
         _enemyMovement.Spawn();
-        _animator.SetBool("Death", false);
-    }
-    public override void Die()
-    {
-        base.Die();
-        _animator.SetBool("Death", true);
+        _animator.SetBool("Walk", true);
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -55,12 +46,4 @@ public class ChasingEnemyHealth : Health
         }
     }
 
-    public override void TakeDamage(float damage)
-    {
-        if (!_isDead)
-        {
-            _damageCounterPooler.CreateOrSpawnFromPool("DamageCounter", transform.position,Quaternion.identity,_gameManager.PlayerCamera.transform).Display((int)damage);
-        }
-        base.TakeDamage(damage);
-    }
 }

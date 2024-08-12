@@ -122,6 +122,8 @@ MonoBehaviour:
   _currentHealth: 0
   _maxHealth: 1
   _animator: {fileID: 7360929613967241573}
+  _collider: {fileID: 2395856204985102124}
+  _rb: {fileID: 5686444928915314243}
 --- !u!1 &6100510470781477994
 GameObject:
   m_ObjectHideFlags: 0

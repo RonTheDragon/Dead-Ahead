@@ -89,6 +89,7 @@ MonoBehaviour:
   _chunks:
   - map
   - map2
+  - map3
 --- !u!114 &4687271848681627567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +179,9 @@ MonoBehaviour:
       StartAmount: 2
     - Tag: map2
       Object: {fileID: 1503463554894452353, guid: ea3a12e78baf1d84c964bd86cceef7ca, type: 3}
+      StartAmount: 2
+    - Tag: map3
+      Object: {fileID: 6521139698482044852, guid: 0fd45b249dd87d24ebae8f1570538c27, type: 3}
       StartAmount: 2
 --- !u!114 &4683516985154256921
 MonoBehaviour:
