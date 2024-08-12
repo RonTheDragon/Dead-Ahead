@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyHealth : Health
+public class ChasingEnemyHealth : Health
 {
     [SerializeField] private LayerMask _deathLayerMask;
     private EnemyMovement _enemyMovement => GetComponent<EnemyMovement>();
@@ -8,6 +8,7 @@ public class EnemyHealth : Health
     private GameManager _gameManager;
     private PlayerHealth _playerHealth;
     private DamageCounterPooler _damageCounterPooler;
+    [SerializeField] private Animator _animator;
 
     private void Start()
     {
@@ -20,11 +21,12 @@ public class EnemyHealth : Health
     {
         base.Spawn();
         _enemyMovement.Spawn();
+        _animator.SetBool("Death", false);
     }
     public override void Die()
     {
         base.Die();
-        gameObject.SetActive(false);
+        _animator.SetBool("Death", true);
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)

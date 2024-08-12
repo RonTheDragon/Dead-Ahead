@@ -588,6 +588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5675439344481317963, guid: bd5e864b50a395041af3ac6bda927c93, type: 3}
+      propertyPath: _attackLayerMask.m_Bits
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7997828788998660840, guid: bd5e864b50a395041af3ac6bda927c93, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

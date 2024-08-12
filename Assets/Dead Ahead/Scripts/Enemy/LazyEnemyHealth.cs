@@ -6,11 +6,20 @@ public class LazyEnemyHealth : Health
 {
     private GameManager _gameManager;
     private DamageCounterPooler _damageCounterPooler;
+    [SerializeField] private Animator _animator;
     private void Start()
     {
         _gameManager = GameManager.Instance;
         _damageCounterPooler = _gameManager.DamageCounterPooler;
+        _animator.SetBool("Walk", false);
     }
+
+    public override void Spawn()
+    {
+        base.Spawn();
+        _animator.SetBool("Death", false);
+    }
+
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {            
          Die();
@@ -18,7 +27,7 @@ public class LazyEnemyHealth : Health
     public override void Die()
     {
         base.Die();
-        gameObject.SetActive(false);
+        _animator.SetBool("Death", true);
     }
     public override void TakeDamage(float damage)
     {

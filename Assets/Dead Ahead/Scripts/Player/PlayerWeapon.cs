@@ -69,7 +69,11 @@ public class PlayerWeapon : MonoBehaviour
         if (hit == false) return;
         if (_layerMask == (_layerMask | (1 << hit.transform.gameObject.layer)))
         {
-            hit.transform.gameObject.GetComponent<Health>().TakeDamage(_weaponData.Upgrades[_weaponLevel].Damage);
+            Health h = hit.transform.gameObject.GetComponent<Health>();
+            if (h != null)
+            {
+                h.TakeDamage(_weaponData.Upgrades[_weaponLevel].Damage);
+            }
         }
     }
 

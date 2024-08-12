@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyMovement : Movement
 {
-    private EnemyHealth _enemyHealth => GetComponent<EnemyHealth>();
+    private ChasingEnemyHealth _enemyHealth => GetComponent<ChasingEnemyHealth>();
     private Rigidbody2D _rigidbody2D => GetComponent<Rigidbody2D>();
     private GameManager _gm;
     private Transform _player;
@@ -23,9 +23,12 @@ public class EnemyMovement : Movement
 
     protected override void Movements()
     {
-        float dir = Mathf.Clamp(GetPlayerDirection(),-1,1);
-        _rigidbody2D.velocity = new Vector2(_movementSpeed, dir * _steerSpeed);
-        FixZ();
+        if (!_enemyHealth.IsDead)
+        {
+            float dir = Mathf.Clamp(GetPlayerDirection(), -1, 1);
+            _rigidbody2D.velocity = new Vector2(_movementSpeed, dir * _steerSpeed);
+            FixZ();
+        }
     }
 
     public void Spawn()
