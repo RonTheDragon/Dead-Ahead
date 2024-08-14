@@ -65,17 +65,28 @@ public class PlayerWeapon : MonoBehaviour
     {
         _particleSystem?.Play();
 
-        RaycastHit2D hit = Physics2D.Raycast(_shootingFrom.position, -_shootingFrom.right,10, _layerMask);
-        if (hit == false) return;
-        if (_layerMask == (_layerMask | (1 << hit.transform.gameObject.layer)))
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(_layerMask);
+        filter.useTriggers = true;
+
+        RaycastHit2D[] hits = new RaycastHit2D[1]; // Adjust the size as needed
+        int hitCount = Physics2D.Raycast(_shootingFrom.position, -_shootingFrom.right, filter, hits, 10);
+
+        if (hitCount == 0) return;
+
+        foreach (var hit in hits)
         {
-            Health h = hit.transform.gameObject.GetComponent<Health>();
-            if (h != null)
+            if (hit.collider != null)
             {
-                h.TakeDamage(_weaponData.Upgrades[_weaponLevel].Damage);
+                Health h = hit.transform.gameObject.GetComponent<Health>();
+                if (h != null)
+                {
+                    h.TakeDamage(_weaponData.Upgrades[_weaponLevel].Damage);
+                }
             }
         }
     }
+
 
     private IEnumerator Reload()
     {
