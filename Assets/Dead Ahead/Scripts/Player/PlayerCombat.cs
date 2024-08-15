@@ -26,7 +26,7 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
 
         _movement = refs.PlayerMovement;
         _health = refs.PlayerHealth;
-        _weaponObject = Instantiate(_weapon.WeaponPrefab, transform.position, Quaternion.identity, transform);
+        _weaponObject = Instantiate(_weapon.WeaponPrefab, _weaponShootFrom.position, Quaternion.identity, transform);
         _weaponObject.SetupWeapon(this);
     }
 

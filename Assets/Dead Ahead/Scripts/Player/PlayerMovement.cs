@@ -146,10 +146,10 @@ public class PlayerMovement : Movement , IPlayerComponent
 
     private void HandleGravity()
     {
-        if (_playerBody.localPosition.y > 0)
+        if (!IsOnGround)
         {
             Collider2D colliderAtPosition = Physics2D.OverlapPoint(transform.position);
-            if (colliderAtPosition != null)
+            if (colliderAtPosition != null && colliderAtPosition.isTrigger)
             {
                 if (colliderAtPosition.transform.tag == "HighGround")
                 {
@@ -167,26 +167,36 @@ public class PlayerMovement : Movement , IPlayerComponent
                 _playerShadow.localPosition = new Vector3(_playerShadow.localPosition.x, 0, _playerShadow.localPosition.z);
                 _bounceOnLand = false;
             }
-        } 
 
-        if (_currentJumpTime == 0)
-        {
-            if (_playerBody.localPosition.y <= 0) { _collider.enabled = true;  return; }
+            if (OutOfJumpTime)
+            {
 
-            if (_playerBody.localPosition.y > _playerShadow.localPosition.y)
-            {
-                _playerBody.localPosition -= _gravity * Time.deltaTime * Vector3.up;
-            }
-            else if (_playerBody.localPosition.y < _playerShadow.localPosition.y)
-            {
-                _playerBody.localPosition = new Vector3(_playerBody.localPosition.x, _playerShadow.localPosition.y, _playerBody.localPosition.z);
-                if (_bounceOnLand)
+                if (IsAboveShadow)
                 {
-                    Jump(0.5f);
+                    _playerBody.localPosition -= _gravity * Time.deltaTime * Vector3.up;
+                }
+                else if (IsBelowShadow)
+                {
+                    _playerBody.localPosition = new Vector3(_playerBody.localPosition.x, _playerShadow.localPosition.y, _playerBody.localPosition.z);
+                    if (_bounceOnLand)
+                    {
+                        Jump(0.5f);
+                    }
                 }
             }
         }
+        else
+        {
+            _collider.enabled = true; 
+        }
     }
+
+    private bool IsOnGround => _playerBody.localPosition.y <= 0;
+    private bool OutOfJumpTime => _currentJumpTime == 0;
+    private bool IsAboveShadow => _playerBody.localPosition.y > _playerShadow.localPosition.y;
+    private bool IsBelowShadow => _playerBody.localPosition.y < _playerShadow.localPosition.y;
+
+
 
     public bool IsSprinting => _isSprinting;
 
