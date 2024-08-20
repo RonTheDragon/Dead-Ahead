@@ -55,6 +55,7 @@ MonoBehaviour:
   _hp: {fileID: 7636952513482613784}
   _cp: {fileID: 1017921780056221173}
   _dcp: {fileID: 4683516985154256921}
+  _enemySpawner: {fileID: 3399662303463319873}
 --- !u!114 &3399662303463319873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +73,12 @@ MonoBehaviour:
     MinRandomTime: 0.5
     MaxRandomTime: 1
     FirstTimeDelay: 0
+    IsBoss: 0
+  - EnemyTag: Boss
+    MinRandomTime: 15
+    MaxRandomTime: 10
+    FirstTimeDelay: 0
+    IsBoss: 1
   _minY: 1.4
   _maxY: -2.7
 --- !u!114 &3038766550629836897
@@ -158,6 +165,11 @@ MonoBehaviour:
     Group:
     - Tag: LazyEnemy
       Object: {fileID: 9185447678707572463, guid: 014ea338dac511541a00f4d686669a2b, type: 3}
+      StartAmount: 0
+  - Name: Bosses
+    Group:
+    - Tag: Boss
+      Object: {fileID: 3549764384196641244, guid: b493841a42594f449b3a878aaf15f3cf, type: 3}
       StartAmount: 0
 --- !u!114 &1017921780056221173
 MonoBehaviour:

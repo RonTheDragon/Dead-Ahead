@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ChunksPooler _cp;
 
     [SerializeField] private DamageCounterPooler _dcp;
+
+    [SerializeField] private EnemySpawner _enemySpawner;
     
 
     public void Awake()
@@ -31,5 +33,5 @@ public class GameManager : MonoBehaviour
     public ChunksPooler ChunksPooler => _cp;
     public DamageCounterPooler DamageCounterPooler => _dcp;
     public Camera PlayerCamera => _playerCamera;
-
+    public EnemySpawner EnemySpawner => _enemySpawner;
 }

@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<SpawnerType> _spawners;
     [SerializeField] private float _minY, _maxY;
 
+    private bool _bossAlive;
 
 
     // Start is called before the first frame update
@@ -43,7 +44,20 @@ public class EnemySpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(spawner.MinRandomTime, spawner.MaxRandomTime));
             SpawnEnemy(spawner);
+            if (spawner.IsBoss)
+            {
+                _bossAlive = true;
+                while (_bossAlive) 
+                {
+                    yield return null;
+                }
+            }
         }
+    }
+
+    public void BossKilled()
+    {
+        _bossAlive = false;
     }
 
     private void SpawnEnemy(SpawnerType spawner)
@@ -51,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
         // Get the left edge position in world coordinates
         float leftEdgeX = _playerCam.ScreenToWorldPoint(new Vector3(0, 0, 0)).x - 1f; // Subtract a small value for offset
         float randomY = Random.Range(_minY, _maxY);
-
+        if (spawner.IsBoss) { randomY = (_minY + _maxY) / 2; }
         Vector2 spawnPos = new Vector2(leftEdgeX, randomY);
 
         _pool.CreateOrSpawnFromPool(spawner.EnemyTag, spawnPos, Quaternion.identity, _pool.transform).Spawn();
@@ -63,5 +77,6 @@ public class EnemySpawner : MonoBehaviour
     {
         public string EnemyTag;
         public float MinRandomTime, MaxRandomTime, FirstTimeDelay;
+        public bool IsBoss;
     }
 }

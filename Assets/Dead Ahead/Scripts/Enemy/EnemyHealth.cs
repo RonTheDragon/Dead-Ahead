@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : Health
 {
+    protected Action OnDeath;
     protected GameManager _gameManager;
     [SerializeField] protected Animator _animator;
     protected DamageCounterPooler _damageCounterPooler;
@@ -24,6 +26,7 @@ public class EnemyHealth : Health
         _collider.enabled = false;
         _rb.velocity = Vector3.zero;
         Invoke(nameof(ClearEnemy), 10);
+        OnDeath?.Invoke();
     }
 
     private void ClearEnemy()

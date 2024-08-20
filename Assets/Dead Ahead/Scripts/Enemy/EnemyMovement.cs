@@ -3,11 +3,11 @@ using UnityEngine;
 public class EnemyMovement : Movement
 {
     private ChasingEnemyHealth _enemyHealth => GetComponent<ChasingEnemyHealth>();
-    private Rigidbody2D _rigidbody2D => GetComponent<Rigidbody2D>();
-    private GameManager _gm;
-    private Transform _player;
+    protected Rigidbody2D _rigidbody2D => GetComponent<Rigidbody2D>();
+    protected GameManager _gm;
+    protected Transform _player;
     
-    private void Start()
+    protected void Start()
     {
         _movingTransform = _rigidbody2D.transform;
         _gm = GameManager.Instance;
