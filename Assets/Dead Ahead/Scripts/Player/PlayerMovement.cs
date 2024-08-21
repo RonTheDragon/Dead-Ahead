@@ -19,6 +19,7 @@ public class PlayerMovement : Movement , IPlayerComponent
     private Collider2D _collider;
     [SerializeField] private float _highGroundHeight, _bounceHeight;
     private bool _bounceOnLand;
+    private Animator _playerAnimator;
 
     public void PlayerStart(PlayerRefs refs)
     {
@@ -31,6 +32,7 @@ public class PlayerMovement : Movement , IPlayerComponent
         _camTransform = _camera.transform;
         _defaultSpeed = _movementSpeed;
         _collider = refs.PlayerCollider;
+        _playerAnimator = refs.PlayerAnimator;
         Movements();
     }
 
@@ -94,7 +96,7 @@ public class PlayerMovement : Movement , IPlayerComponent
 
     private void StuckCheck()
     {
-        if (_rigidbody2D.velocity.x == 0 )
+        if (_rigidbody2D.velocity.x <= 0.01f )
         {
             GotStuck();
         }
@@ -116,6 +118,8 @@ public class PlayerMovement : Movement , IPlayerComponent
     public void SetSprint(bool Sprinting)
     {
         _isSprinting= Sprinting;
+        _playerAnimator.SetBool("Sprint",Sprinting);
+        _playerAnimator.SetBool("Shoot", false);
     }
 
     public void Die()
@@ -129,6 +133,8 @@ public class PlayerMovement : Movement , IPlayerComponent
     {
         _currentJumpTime = _jumpTime * mult;
         _collider.enabled = false;
+        _playerAnimator.SetBool("Jump", true);
+        _playerAnimator.SetBool("Shoot", false);
     }
 
     private void HandleJump()
@@ -178,6 +184,7 @@ public class PlayerMovement : Movement , IPlayerComponent
                 else if (IsBelowShadow)
                 {
                     _playerBody.localPosition = new Vector3(_playerBody.localPosition.x, _playerShadow.localPosition.y, _playerBody.localPosition.z);
+                    _playerAnimator.SetBool("Jump", false);
                     if (_bounceOnLand)
                     {
                         Jump(0.5f);
@@ -187,7 +194,8 @@ public class PlayerMovement : Movement , IPlayerComponent
         }
         else
         {
-            _collider.enabled = true; 
+            _collider.enabled = true;
+            _playerAnimator.SetBool("Jump", false);
         }
     }
 

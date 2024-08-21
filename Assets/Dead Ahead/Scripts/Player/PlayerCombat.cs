@@ -16,6 +16,8 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
     [SerializeField] private TMP_Text _ammoText;
     private GameManager _gm;
     private GameData _gameData;
+    private Animator _playerAnimator;
+    private Collider2D _collider;
 
     public void PlayerStart(PlayerRefs refs)
     {
@@ -28,6 +30,8 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
         _health = refs.PlayerHealth;
         _weaponObject = Instantiate(_weapon.WeaponPrefab, _weaponShootFrom.position, Quaternion.identity, transform);
         _weaponObject.SetupWeapon(this);
+        _playerAnimator = refs.PlayerAnimator;
+        _collider = refs.PlayerCollider;
     }
 
     public void SetShooting(bool shooting)
@@ -37,7 +41,7 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
 
     public void Update()
     {
-        if (_isShooting && !_movement.IsSprinting && !_health.IsDead)
+        if (_isShooting && !_movement.IsSprinting && !_health.IsDead && _collider.enabled)
         {
             ShootWeapon();
         }
@@ -45,7 +49,15 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
 
     private void ShootWeapon()
     {
+        CancelInvoke(nameof(StopShootAnimation));
         _weaponObject.TryShoot();
+        _playerAnimator.SetBool("Shoot", true);
+        Invoke(nameof(StopShootAnimation), 0.5f);
+    }
+
+    private void StopShootAnimation()
+    {
+        _playerAnimator.SetBool("Shoot", false);
     }
 
     public int WeaponLevel => _weaponLevel;

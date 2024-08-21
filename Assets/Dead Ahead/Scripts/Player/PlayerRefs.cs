@@ -9,6 +9,7 @@ public class PlayerRefs : MonoBehaviour
     [SerializeField] private Transform _playerTransform, _playerBody, _playerShadow;
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private Collider2D _playerCollider;
+    [SerializeField] private Animator _playerAnimator;
 
     private void Start()
     {
@@ -26,4 +27,5 @@ public class PlayerRefs : MonoBehaviour
     public Transform PlayerShadow => _playerShadow;
     public Rigidbody2D Rigidbody2D => _rigidbody2D;
     public Collider2D PlayerCollider => _playerCollider;
+    public Animator PlayerAnimator => _playerAnimator;
 }
