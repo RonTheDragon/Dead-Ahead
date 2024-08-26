@@ -6,6 +6,7 @@ public class PlayerHealth : Health , IPlayerComponent
     [SerializeField] private GameObject _deathMenu;
     [SerializeField] private float _deathMenuDelay;
     private Animator _playerAnimator;
+    private PlayerCombat _playerCombat;
 
 
     public override void Die()
@@ -14,7 +15,7 @@ public class PlayerHealth : Health , IPlayerComponent
         _playerMovement.Die();
         Invoke(nameof(DeathMenu), _deathMenuDelay);
         _playerAnimator.SetBool("Death",true);
-        _playerAnimator.SetBool("Shoot", false);
+        _playerCombat.StopShootAnimation();
     }
 
     private void DeathMenu()
@@ -28,6 +29,7 @@ public class PlayerHealth : Health , IPlayerComponent
         Spawn();
         _playerMovement = refs.PlayerMovement;
         _playerAnimator = refs.PlayerAnimator;
+        _playerCombat = refs.PlayerCombat;
     }
 
     public bool TryCatchPlayer(float enemyX)

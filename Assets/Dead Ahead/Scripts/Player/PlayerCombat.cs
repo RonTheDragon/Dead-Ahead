@@ -42,7 +42,7 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
 
     public void Update()
     {
-        if (_isShooting && !_movement.IsSprinting && !_health.IsDead && _collider.enabled)
+        if (_isShooting && !_movement.IsSprinting && !_health.IsDead && !_movement.IsAboveShadow)
         {
             ShootWeapon();
         }
@@ -50,14 +50,17 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
 
     private void ShootWeapon()
     {
-        _weaponObject.SetModelActive(true);
-        CancelInvoke(nameof(StopShootAnimation));
-        _weaponObject.TryShoot();
-        _playerAnimator.SetBool("Shoot", true);
-        Invoke(nameof(StopShootAnimation), 0.5f);
+        bool b = _weaponObject.TryShoot();
+        if (b)
+        {
+            _weaponObject.SetModelActive(true);
+            CancelInvoke(nameof(StopShootAnimation));
+            _playerAnimator.SetBool("Shoot", true);
+            Invoke(nameof(StopShootAnimation), _weaponObject.LowerWeaponAfterTime);
+        }
     }
 
-    private void StopShootAnimation()
+    public void StopShootAnimation()
     {
         _weaponObject.SetModelActive(false);
         _playerAnimator.SetBool("Shoot", false);

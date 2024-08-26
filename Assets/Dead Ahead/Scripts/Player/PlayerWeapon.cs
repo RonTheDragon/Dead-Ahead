@@ -107,4 +107,6 @@ public class PlayerWeapon : MonoBehaviour
     {
         _weaponModel.SetActive(active);
     }
+
+    public float LowerWeaponAfterTime => _weaponData.Upgrades[_weaponLevel].ShootCooldown+0.01f;
 }

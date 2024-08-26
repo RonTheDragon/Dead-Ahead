@@ -115,6 +115,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6030036291121899462}
+  - {fileID: 6747258356500005903}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7304234794001780715
@@ -132,6 +133,7 @@ MonoBehaviour:
   _weaponData: {fileID: 11400000, guid: da81197f670a11d479199a1a666142ee, type: 2}
   _particleSystem: {fileID: 6114296009265778654}
   _weaponModel: {fileID: 3977019823263546378}
+  _lowerWeaponAfterTime: 0.1
 --- !u!1 &3516684783608837993
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +165,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6030036291121899462}
+  m_Father: {fileID: 4656273804090335949}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &6114296009265778654
 ParticleSystem:
@@ -5030,7 +5032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6030036291121899462}
   m_Layer: 0
-  m_Name: PistonModel
+  m_Name: Uzi Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5052,7 +5054,6 @@ Transform:
   - {fileID: 5538497736548440786}
   - {fileID: 3645139018783274739}
   - {fileID: 6264636306180901929}
-  - {fileID: 6747258356500005903}
   m_Father: {fileID: 4656273804090335949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6175814207018532828

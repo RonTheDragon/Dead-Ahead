@@ -115,7 +115,6 @@ Transform:
   m_Children:
   - {fileID: 6877767482859181899}
   - {fileID: 2065787024717290757}
-  - {fileID: 322368391626465110}
   m_Father: {fileID: 4656273804090335949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2324435342748042179
@@ -149,6 +148,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6561320187404636683}
+  - {fileID: 322368391626465110}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7304234794001780715
@@ -166,6 +166,7 @@ MonoBehaviour:
   _weaponData: {fileID: 11400000, guid: 8fc7619acbf959f4b98b2558a6081d4c, type: 2}
   _particleSystem: {fileID: 84008246346519785}
   _weaponModel: {fileID: 1793846526258790988}
+  _lowerWeaponAfterTime: 1
 --- !u!1 &2798787626605454121
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +198,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6561320187404636683}
+  m_Father: {fileID: 4656273804090335949}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &84008246346519785
 ParticleSystem:

@@ -20,6 +20,7 @@ public class PlayerMovement : Movement , IPlayerComponent
     [SerializeField] private float _highGroundHeight, _bounceHeight;
     private bool _bounceOnLand;
     private Animator _playerAnimator;
+    private PlayerCombat _playerCombat;
 
     public void PlayerStart(PlayerRefs refs)
     {
@@ -33,6 +34,7 @@ public class PlayerMovement : Movement , IPlayerComponent
         _defaultSpeed = _movementSpeed;
         _collider = refs.PlayerCollider;
         _playerAnimator = refs.PlayerAnimator;
+        _playerCombat = refs.PlayerCombat;
         Movements();
     }
 
@@ -119,7 +121,10 @@ public class PlayerMovement : Movement , IPlayerComponent
     {
         _isSprinting= Sprinting;
         _playerAnimator.SetBool("Sprint",Sprinting);
-        _playerAnimator.SetBool("Shoot", false);
+        if (_isSprinting)
+        {
+            _playerCombat.StopShootAnimation();
+        }
     }
 
     public void Die()
@@ -134,7 +139,7 @@ public class PlayerMovement : Movement , IPlayerComponent
         _currentJumpTime = _jumpTime * mult;
         _collider.enabled = false;
         _playerAnimator.SetBool("Jump", true);
-        _playerAnimator.SetBool("Shoot", false);
+        _playerCombat.StopShootAnimation();
     }
 
     private void HandleJump()
@@ -201,7 +206,7 @@ public class PlayerMovement : Movement , IPlayerComponent
 
     private bool IsOnGround => _playerBody.localPosition.y <= 0;
     private bool OutOfJumpTime => _currentJumpTime == 0;
-    private bool IsAboveShadow => _playerBody.localPosition.y > _playerShadow.localPosition.y;
+    public bool IsAboveShadow => _playerBody.localPosition.y > _playerShadow.localPosition.y;
     private bool IsBelowShadow => _playerBody.localPosition.y < _playerShadow.localPosition.y;
 
 
