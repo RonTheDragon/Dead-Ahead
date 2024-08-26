@@ -7,6 +7,7 @@ public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private SOweapon _weaponData;
     [SerializeField] private ParticleSystem _particleSystem;
+    [SerializeField] private GameObject _weaponModel;
     private int _ammo;
     private bool _isShotCooldown;
     private Transform _shootingFrom;
@@ -100,5 +101,10 @@ public class PlayerWeapon : MonoBehaviour
     private void UpdateAmmoText()
     {
         _ammoText.text = $"{_ammo} / {_weaponData.Upgrades[_weaponLevel].MaxAmmo}";
+    }
+
+    public void SetModelActive(bool active)
+    {
+        _weaponModel.SetActive(active);
     }
 }

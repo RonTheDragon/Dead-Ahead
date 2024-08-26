@@ -1,23 +1,25 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : Health
 {
     protected Action OnDeath;
     protected GameManager _gameManager;
+    private Camera _playerCamera;
     [SerializeField] protected Animator _animator;
     protected DamageCounterPooler _damageCounterPooler;
     [SerializeField] private Collider2D _collider;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private float _damageCounterSpawnHeight;
+    [SerializeField] private float _tryClearRate = 3;
+    [SerializeField] private float _clearIfThatFarOutsideOfCamera = 20;
 
     // Start is called before the first frame update
     protected void Start()
     {
         _gameManager = GameManager.Instance;
         _damageCounterPooler = _gameManager.DamageCounterPooler;
+        _playerCamera = _gameManager.PlayerCamera;
     }
 
     public override void Die()
@@ -26,13 +28,13 @@ public class EnemyHealth : Health
         _animator.SetBool("Death", true);
         _collider.enabled = false;
         _rb.velocity = Vector3.zero;
-        Invoke(nameof(ClearEnemy), 10);
         OnDeath?.Invoke();
     }
 
     private void ClearEnemy()
     {
         gameObject.SetActive(false);
+        CancelInvoke(nameof(TryClearEnemy));
     }
 
     public override void Spawn()
@@ -40,6 +42,7 @@ public class EnemyHealth : Health
         base.Spawn();
         _animator.SetBool("Death", false);
         _collider.enabled = true;
+        InvokeRepeating(nameof(TryClearEnemy), _tryClearRate, _tryClearRate);
     }
 
     public override void TakeDamage(float damage)
@@ -47,8 +50,16 @@ public class EnemyHealth : Health
         if (!_isDead)
         {
             _damageCounterPooler.CreateOrSpawnFromPool("DamageCounter", transform.position + new Vector3(0, _damageCounterSpawnHeight,0),
-                Quaternion.identity, _gameManager.PlayerCamera.transform).Display((int)damage);
+                Quaternion.identity, _playerCamera.transform).Display((int)damage);
         }
         base.TakeDamage(damage);
+    }
+
+    private void TryClearEnemy()
+    {
+        if (transform.position.x < _playerCamera.ScreenToWorldPoint(Vector3.zero).x - (IsDead ? 0 : _clearIfThatFarOutsideOfCamera))
+        {
+            ClearEnemy();
+        }
     }
 }

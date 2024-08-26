@@ -28,10 +28,11 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
 
         _movement = refs.PlayerMovement;
         _health = refs.PlayerHealth;
-        _weaponObject = Instantiate(_weapon.WeaponPrefab, _weaponShootFrom.position, Quaternion.identity, transform);
+        _weaponObject = Instantiate(_weapon.WeaponPrefab, _weaponShootFrom.position, Quaternion.identity, _weaponShootFrom);
         _weaponObject.SetupWeapon(this);
         _playerAnimator = refs.PlayerAnimator;
         _collider = refs.PlayerCollider;
+        _weaponObject.SetModelActive(false);
     }
 
     public void SetShooting(bool shooting)
@@ -49,6 +50,7 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
 
     private void ShootWeapon()
     {
+        _weaponObject.SetModelActive(true);
         CancelInvoke(nameof(StopShootAnimation));
         _weaponObject.TryShoot();
         _playerAnimator.SetBool("Shoot", true);
@@ -57,6 +59,7 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
 
     private void StopShootAnimation()
     {
+        _weaponObject.SetModelActive(false);
         _playerAnimator.SetBool("Shoot", false);
     }
 

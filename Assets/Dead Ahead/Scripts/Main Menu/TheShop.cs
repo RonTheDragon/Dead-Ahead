@@ -16,7 +16,6 @@ public class TheShop : MonoBehaviour
         _weaponsInShop = new List<ShopItem>();
 
         _gameData = gameData;
-        _gameData.Money = 200;
         _moneyUI.text = $"{_gameData.Money}$";
         if (_gameData.WeaponLevels == null)
         {
