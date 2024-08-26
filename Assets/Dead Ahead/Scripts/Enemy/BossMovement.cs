@@ -13,6 +13,7 @@ public class BossMovement : EnemyMovement
         _playerCamera = _gm.PlayerCamera;
         _playerHealth = _gm.PlayerRefs.PlayerHealth;
     }
+    
 
     protected override void Movements()
     {

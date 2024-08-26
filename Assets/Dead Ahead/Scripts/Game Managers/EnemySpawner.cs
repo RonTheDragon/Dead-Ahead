@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     
 
     [SerializeField] private List<SpawnerType> _spawners;
-    [SerializeField] private float _minY, _maxY;
+    [SerializeField] private float _minY, _maxY, bossY;
 
     private bool _bossAlive;
 
@@ -65,8 +65,8 @@ public class EnemySpawner : MonoBehaviour
         // Get the left edge position in world coordinates
         float leftEdgeX = _playerCam.ScreenToWorldPoint(new Vector3(0, 0, 0)).x - 1f; // Subtract a small value for offset
         float randomY = Random.Range(_minY, _maxY);
-        if (spawner.IsBoss) { randomY = (_minY + _maxY) / 2; }
-        Vector2 spawnPos = new Vector2(leftEdgeX, randomY);
+        if (spawner.IsBoss) { randomY = bossY; }
+        Vector3 spawnPos = new Vector3(leftEdgeX, randomY, randomY);
 
         _pool.CreateOrSpawnFromPool(spawner.EnemyTag, spawnPos, Quaternion.identity, _pool.transform).Spawn();
     }

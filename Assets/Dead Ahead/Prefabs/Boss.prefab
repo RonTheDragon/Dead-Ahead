@@ -135,7 +135,7 @@ Transform:
   m_GameObject: {fileID: 8523303528985970928}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.78, y: -1, z: 0}
+  m_LocalPosition: {x: -9.78, y: -1, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -246,3 +246,4 @@ MonoBehaviour:
   _animator: {fileID: 6786639999810691698}
   _collider: {fileID: 1487915650975900297}
   _rb: {fileID: 4584036183732282565}
+  _damageCounterSpawnHeight: 3

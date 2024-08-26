@@ -11,6 +11,7 @@ public class EnemyHealth : Health
     protected DamageCounterPooler _damageCounterPooler;
     [SerializeField] private Collider2D _collider;
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private float _damageCounterSpawnHeight;
 
     // Start is called before the first frame update
     protected void Start()
@@ -45,7 +46,8 @@ public class EnemyHealth : Health
     {
         if (!_isDead)
         {
-            _damageCounterPooler.CreateOrSpawnFromPool("DamageCounter", transform.position, Quaternion.identity, _gameManager.PlayerCamera.transform).Display((int)damage);
+            _damageCounterPooler.CreateOrSpawnFromPool("DamageCounter", transform.position + new Vector3(0, _damageCounterSpawnHeight,0),
+                Quaternion.identity, _gameManager.PlayerCamera.transform).Display((int)damage);
         }
         base.TakeDamage(damage);
     }

@@ -79,8 +79,9 @@ MonoBehaviour:
     MaxRandomTime: 10
     FirstTimeDelay: 0
     IsBoss: 1
-  _minY: 1.4
-  _maxY: -2.7
+  _minY: 1.65
+  _maxY: -3
+  bossY: -2
 --- !u!114 &3038766550629836897
 MonoBehaviour:
   m_ObjectHideFlags: 0
