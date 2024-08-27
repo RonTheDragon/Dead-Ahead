@@ -13,6 +13,7 @@ public class EnemyHealth : Health
     [SerializeField] private float _damageCounterSpawnHeight;
     [SerializeField] private float _tryClearRate = 3;
     [SerializeField] private float _clearIfThatFarOutsideOfCamera = 20;
+    [SerializeField] private int _moneyWorth;
 
     // Start is called before the first frame update
     protected void Start()
@@ -28,6 +29,7 @@ public class EnemyHealth : Health
         _animator.SetBool("Death", true);
         _collider.enabled = false;
         _rb.velocity = Vector3.zero;
+        _gameManager.PlayerRefs.PlayerScoreSystem.KilledEnemy(_moneyWorth);
         OnDeath?.Invoke();
     }
 

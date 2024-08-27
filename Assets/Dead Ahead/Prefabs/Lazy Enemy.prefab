@@ -171,6 +171,9 @@ MonoBehaviour:
   _collider: {fileID: 2395856204985102124}
   _rb: {fileID: 5686444928915314243}
   _damageCounterSpawnHeight: 1
+  _tryClearRate: 3
+  _clearIfThatFarOutsideOfCamera: 20
+  _moneyWorth: 5
 --- !u!1 &6100510470781477994
 GameObject:
   m_ObjectHideFlags: 0

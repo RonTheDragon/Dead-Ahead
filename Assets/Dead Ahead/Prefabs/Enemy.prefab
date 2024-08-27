@@ -292,6 +292,9 @@ MonoBehaviour:
   _collider: {fileID: 7975231596138000012}
   _rb: {fileID: 7216280779877154837}
   _damageCounterSpawnHeight: 1
+  _tryClearRate: 1
+  _clearIfThatFarOutsideOfCamera: 0
+  _moneyWorth: 3
   _deathLayerMask:
     serializedVersion: 2
     m_Bits: 65
