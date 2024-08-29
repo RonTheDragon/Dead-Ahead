@@ -8,6 +8,7 @@ public class PlayerHealth : Health , IPlayerComponent
     private Animator _playerAnimator;
     private PlayerCombat _playerCombat;
     private PlayerScoreSystem _playerScoreSystem;
+    private Collider2D _playerCollider;
 
 
     public override void Die()
@@ -17,14 +18,15 @@ public class PlayerHealth : Health , IPlayerComponent
         Invoke(nameof(DeathMenu), _deathMenuDelay);
         _playerAnimator.SetBool("Death",true);
         _playerAnimator.SetBool("Jump", false);
+        _playerCollider.enabled = false;
         _playerCombat.StopShootAnimation();
     }
 
     private void DeathMenu()
     {
         Time.timeScale = 0;
+        _playerScoreSystem.ScoreBoard();
         _deathMenu.SetActive(true);
-        _playerScoreSystem.SaveProgress();
     }
 
     public void PlayerStart(PlayerRefs refs)
@@ -34,6 +36,7 @@ public class PlayerHealth : Health , IPlayerComponent
         _playerAnimator = refs.PlayerAnimator;
         _playerCombat = refs.PlayerCombat;
         _playerScoreSystem = refs.PlayerScoreSystem;
+        _playerCollider = refs.PlayerCollider;
     }
 
     public bool TryCatchPlayer(float enemyX)

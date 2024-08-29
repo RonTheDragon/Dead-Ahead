@@ -12,4 +12,10 @@ public class BossHealth : EnemyHealth
         base.Spawn();
         _animator.SetBool("Walk", true);
     }
+
+    public override void Die()
+    {
+        _killType = KillInfo.KillType.Boss;
+        base.Die();
+    }
 }

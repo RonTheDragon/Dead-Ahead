@@ -54,7 +54,7 @@ MonoBehaviour:
   _playerCamera: {fileID: 0}
   _hp: {fileID: 7636952513482613784}
   _cp: {fileID: 1017921780056221173}
-  _dcp: {fileID: 4683516985154256921}
+  _uipup: {fileID: 6421437138456969078}
   _enemySpawner: {fileID: 3399662303463319873}
 --- !u!114 &3399662303463319873
 MonoBehaviour:
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 448483291434817802}
   - component: {fileID: 7636952513482613784}
   - component: {fileID: 1017921780056221173}
-  - component: {fileID: 4683516985154256921}
+  - component: {fileID: 6421437138456969078}
   m_Layer: 0
   m_Name: ObjectPoolers
   m_TagString: Untagged
@@ -196,7 +196,7 @@ MonoBehaviour:
     - Tag: map3
       Object: {fileID: 6521139698482044852, guid: 0fd45b249dd87d24ebae8f1570538c27, type: 3}
       StartAmount: 2
---- !u!114 &4683516985154256921
+--- !u!114 &6421437138456969078
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8074404126307287054}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20406cc3c7f0dbc45aa5c5f1e8f9104c, type: 3}
+  m_Script: {fileID: 11500000, guid: 441c8d5010d9e2d48a4d67a5ae675d59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _poolGroups:

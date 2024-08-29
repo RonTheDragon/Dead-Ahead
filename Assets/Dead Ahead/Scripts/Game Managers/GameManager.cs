@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private ChunksPooler _cp;
 
-    [SerializeField] private DamageCounterPooler _dcp;
+    [SerializeField] private UIPopUpsPooler _uipup;
 
     [SerializeField] private EnemySpawner _enemySpawner;
     
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public SOweaponsList WeaponsList => _weaponsList;
     public HealthPooler HealthPooler => _hp;
     public ChunksPooler ChunksPooler => _cp;
-    public DamageCounterPooler DamageCounterPooler => _dcp;
+    public UIPopUpsPooler UIPopUpsPooler => _uipup;
     public Camera PlayerCamera => _playerCamera;
     public EnemySpawner EnemySpawner => _enemySpawner;
 }

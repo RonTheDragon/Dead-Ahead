@@ -250,3 +250,7 @@ MonoBehaviour:
   _tryClearRate: 3
   _clearIfThatFarOutsideOfCamera: 20
   _moneyWorth: 200
+  _killInfos:
+  - KilledBy: 3
+    DeathMsg: BOSS KILL
+    Reward: 200

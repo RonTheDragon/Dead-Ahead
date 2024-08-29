@@ -10,7 +10,11 @@ public class LazyEnemyHealth : EnemyHealth
         transform.position = new Vector3(transform.position.x,transform.position.y,transform.position.y);
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
-    {            
-         Die();
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            _killType = KillInfo.KillType.Runover;
+        }
+        Die();
     }
 }

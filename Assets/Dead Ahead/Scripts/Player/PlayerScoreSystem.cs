@@ -15,15 +15,22 @@ public class PlayerScoreSystem : MonoBehaviour, IPlayerComponent
     [SerializeField] private float _updateDistanceDelay;
     [SerializeField] private List<ComboLevel> _comboLevels;
     [SerializeField] private int _metersPerDollarWorth;
+    [SerializeField]
+    private TMP_Text _killsTotalDS, _killsCrashDS, _killsKilledDS, _KillsRunOverDS, _KillBossDS, _moneyTotalDS, _moneyEarnedDS,
+        _moneyKillsDS, _moneyComboDS, _moneyDistanceDS, _distanceDS, _bestComboDS, _distanceRecordDS, _killsRecordDS, _comboRecordDS;
 
     private bool _alreadySaved;
+
+    private int _bestCombo, _crashKills,_shotKills,_runoverKills, _bossKills, _moneyFromKills, _moneyFromCombos, _moneyFromDistance;
+
+    private GameData _gameData;
 
     public void PlayerStart(PlayerRefs refs)
     {
         _gm = GameManager.Instance;
         _playerHealth = refs.PlayerHealth;
-
-        _moneyBeforeGame = _gm.SaveSystem.GameData.Money;
+        _gameData = _gm.SaveSystem.GameData;
+        _moneyBeforeGame = _gameData.Money;
         _totalMoney = _moneyBeforeGame;
         _totalKillsText.text = $"{_totalKills.ToString()} Kills";
         UpdateTotalMoneyText();
@@ -34,19 +41,33 @@ public class PlayerScoreSystem : MonoBehaviour, IPlayerComponent
         _currentMoneyEarnedText.alpha = 0;
     }
 
-    public void KilledEnemy(int Money)
+    public void KilledEnemy(int Money,KillInfo.KillType killType)
     {
         if (_playerHealth.IsDead) return;
 
+        switch (killType)
+        {
+            case KillInfo.KillType.Crash: _crashKills++; break;
+            case KillInfo.KillType.Killed: _shotKills++; break;
+            case KillInfo.KillType.Runover: _runoverKills++; break;
+            case KillInfo.KillType.Boss: _bossKills++; break;
+        }
+
         _currentCombo++;
+        if (_bestCombo < _currentCombo) { _bestCombo = _currentCombo; }
         _comboText.text = $"+{_currentCombo.ToString()}";
         _comboText.alpha = 1;
         _comboLevelText.text = CaculateComboName();
         _comboLevelText.alpha = 1;
 
-        _currentMoneyEarn += Money + CaculateComboBonus();
+        int comboBonus = CaculateComboBonus();
+
+        _currentMoneyEarn += Money + comboBonus;
         _currentMoneyEarnedText.text = $"+{_currentMoneyEarn}$";
         _currentMoneyEarnedText.alpha = 1;
+
+        _moneyFromKills += Money;
+        _moneyFromCombos += comboBonus;
 
 
 
@@ -62,14 +83,50 @@ public class PlayerScoreSystem : MonoBehaviour, IPlayerComponent
         SaveProgress();
     }
 
-    public void SaveProgress()
+    private void SaveProgress()
     {
         if (_alreadySaved) return;
         _alreadySaved = true;
-        _totalMoney += (_distance / _metersPerDollarWorth) + _currentMoneyEarn;
+        _moneyFromDistance = _distance / _metersPerDollarWorth;
+        _totalMoney += _moneyFromDistance + _currentMoneyEarn;
         _gm.SaveSystem.GameData.Money = _totalMoney;
+        HandleRecords();
         _gm.SaveSystem.SaveGame();
     }
+
+    public void ScoreBoard()
+    {
+        SaveProgress();
+        _killsTotalDS.text = $"In Total: {_totalKills}";
+        _killsCrashDS.text = $"Crashed: {_crashKills}";
+        _killsKilledDS.text = $"Killed: {_shotKills}";
+        _KillsRunOverDS.text = $"Ranover: {_runoverKills}";
+        _KillBossDS.text = $"Bosses Defeated: {_bossKills}";
+
+        _moneyTotalDS.text = $"You Now Have: {_totalMoney}$";
+        _moneyEarnedDS.text = $"In Total: {_totalMoney-_moneyBeforeGame}$";
+        _moneyKillsDS.text = $"Kills Reward: {_moneyFromKills}$";
+        _moneyComboDS.text = $"Combo Reward: {_moneyFromCombos}$";
+        _moneyDistanceDS.text = $"Distace Reward: {_moneyFromDistance}$";
+
+        _distanceDS.text = $"Distance: {_distance}m";
+        _bestComboDS.text = $"Best Combo: {_bestCombo}";
+    }
+
+    private void HandleRecords()
+    {
+        UpdateRecord(ref _gameData.DistanceRecord, _distance, _distanceRecordDS, "Distance Record: ", "m");
+        UpdateRecord(ref _gameData.KillsRecord, _totalKills, _killsRecordDS, "Kills Record: ");
+        UpdateRecord(ref _gameData.ComboRecord, _bestCombo, _comboRecordDS, "Combo Record: ");
+    }
+
+    private void UpdateRecord(ref int recordValue, int currentValue, TMP_Text displayText, string label, string suffix = "")
+    {
+        bool recordBroken = recordValue < currentValue;
+        displayText.text = $"{label}{recordValue}{suffix}{(recordBroken ? " (Broken)" : "")}";
+        if (recordBroken) recordValue = currentValue;
+    }
+
 
     private IEnumerator ResetCombo()
     {

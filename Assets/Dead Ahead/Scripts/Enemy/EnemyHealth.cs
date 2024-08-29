@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static KillInfo;
 
 public class EnemyHealth : Health
 {
@@ -7,20 +9,28 @@ public class EnemyHealth : Health
     protected GameManager _gameManager;
     private Camera _playerCamera;
     [SerializeField] protected Animator _animator;
-    protected DamageCounterPooler _damageCounterPooler;
+    protected UIPopUpsPooler _popupsPooler;
     [SerializeField] private Collider2D _collider;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private float _damageCounterSpawnHeight;
     [SerializeField] private float _tryClearRate = 3;
     [SerializeField] private float _clearIfThatFarOutsideOfCamera = 20;
     [SerializeField] private int _moneyWorth;
+    [SerializeField] private List<KillInfo> _killInfos;
+    protected KillType _killType;
+
+    private PlayerHealth _playerHealth;
+    private PlayerScoreSystem _playerScoreSystem;
 
     // Start is called before the first frame update
     protected void Start()
     {
         _gameManager = GameManager.Instance;
-        _damageCounterPooler = _gameManager.DamageCounterPooler;
+        _popupsPooler = _gameManager.UIPopUpsPooler;
         _playerCamera = _gameManager.PlayerCamera;
+        _playerHealth = _gameManager.PlayerRefs.PlayerHealth;
+        _playerScoreSystem = _gameManager.PlayerRefs.PlayerScoreSystem;
+        OnDeath += DeathReward;
     }
 
     public override void Die()
@@ -29,7 +39,6 @@ public class EnemyHealth : Health
         _animator.SetBool("Death", true);
         _collider.enabled = false;
         _rb.velocity = Vector3.zero;
-        _gameManager.PlayerRefs.PlayerScoreSystem.KilledEnemy(_moneyWorth);
         OnDeath?.Invoke();
     }
 
@@ -42,6 +51,7 @@ public class EnemyHealth : Health
     public override void Spawn()
     {
         base.Spawn();
+        _killType = KillType.Crash;
         _animator.SetBool("Death", false);
         _collider.enabled = true;
         InvokeRepeating(nameof(TryClearEnemy), _tryClearRate, _tryClearRate);
@@ -51,10 +61,39 @@ public class EnemyHealth : Health
     {
         if (!_isDead)
         {
-            _damageCounterPooler.CreateOrSpawnFromPool("DamageCounter", transform.position + new Vector3(0, _damageCounterSpawnHeight,0),
-                Quaternion.identity, _playerCamera.transform).Display((int)damage);
+            _killType = KillType.Killed;
+
+            _popupsPooler.CreateOrSpawnFromPool("DamageCounter", transform.position + new Vector3(0, _damageCounterSpawnHeight,0),
+                Quaternion.identity, _playerCamera.transform).Display(((int)damage).ToString());
         }
         base.TakeDamage(damage);
+    }
+
+    protected virtual void DeathReward()
+    {
+        if (_playerHealth.IsDead) return;
+
+        KillInfo k = GetKillInfo();
+        if (k != null)
+        {
+            _popupsPooler.CreateOrSpawnFromPool("KillPopUp", transform.position + new Vector3(0, _damageCounterSpawnHeight, 0),
+                    Quaternion.identity, _playerCamera.transform).Display($"{k.DeathMsg}\n+ {k.Reward} $");
+
+            _playerScoreSystem.KilledEnemy(k.Reward, k.KilledBy);
+        }
+    }
+
+    private KillInfo GetKillInfo()
+    {
+        foreach (KillInfo k in _killInfos)
+        {
+            if (k.KilledBy == _killType)
+            {
+                return k;
+            }
+        }
+        Debug.LogWarning("missing Kill Info");
+        return null;
     }
 
     private void TryClearEnemy()

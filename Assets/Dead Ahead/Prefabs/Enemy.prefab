@@ -295,6 +295,16 @@ MonoBehaviour:
   _tryClearRate: 1
   _clearIfThatFarOutsideOfCamera: 0
   _moneyWorth: 3
+  _killInfos:
+  - KilledBy: 0
+    DeathMsg: Crash!
+    Reward: 1
+  - KilledBy: 1
+    DeathMsg: Kill!
+    Reward: 3
+  - KilledBy: 2
+    DeathMsg: Runover!
+    Reward: 20
   _deathLayerMask:
     serializedVersion: 2
     m_Bits: 65

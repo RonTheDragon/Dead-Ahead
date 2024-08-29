@@ -417,6 +417,18 @@ PrefabInstance:
       propertyPath: _playerCamera
       value: 
       objectReference: {fileID: 1877300004}
+    - target: {fileID: 6421437138456969078, guid: b4deda64b8baa744087dce1819222835, type: 3}
+      propertyPath: _poolGroups.Array.data[0].Group.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6421437138456969078, guid: b4deda64b8baa744087dce1819222835, type: 3}
+      propertyPath: _poolGroups.Array.data[0].Group.Array.data[1].Tag
+      value: KillPopUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6421437138456969078, guid: b4deda64b8baa744087dce1819222835, type: 3}
+      propertyPath: _poolGroups.Array.data[0].Group.Array.data[1].Object
+      value: 
+      objectReference: {fileID: 2675220008304047766, guid: cab3c68c3278ded4aa1daad8d51bbd3b, type: 3}
     - target: {fileID: 8402684157243647855, guid: b4deda64b8baa744087dce1819222835, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -28,6 +28,7 @@ public class ChasingEnemyHealth : EnemyHealth
             {
                 if (!_playerHealth.TryCatchPlayer(transform.position.x))
                 {
+                    _killType = KillInfo.KillType.Runover;
                     Die();
                 }
             }

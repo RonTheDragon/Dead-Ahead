@@ -1,16 +1,17 @@
 using TMPro;
 using UnityEngine;
 
-public class DamageCounter : MonoBehaviour
+public class UIPopUp : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private float _disapearTime = 2;
 
-    public void Display(int damage)
+    public void Display(string toDisplay)
     {
-        _text.text = damage.ToString();
+        _text.text = toDisplay;
         _animator.SetTrigger("Display");
-        Invoke(nameof(Disapear), 2);
+        Invoke(nameof(Disapear), _disapearTime);
     }
 
     private void Disapear()
