@@ -94,6 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00753ff90de1a064e8d502c1ba766f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startingRoad: {fileID: 0}
+  _road: Road
   _chunks:
   - map
   - map2
@@ -196,6 +198,11 @@ MonoBehaviour:
     - Tag: map3
       Object: {fileID: 6521139698482044852, guid: 0fd45b249dd87d24ebae8f1570538c27, type: 3}
       StartAmount: 2
+  - Name: Road
+    Group:
+    - Tag: Road
+      Object: {fileID: 40765470567021285, guid: dc52b42575140874283bfbf20ba4c418, type: 3}
+      StartAmount: 3
 --- !u!114 &6421437138456969078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,4 +220,7 @@ MonoBehaviour:
     Group:
     - Tag: DamageCounter
       Object: {fileID: 7262077652521039530, guid: c87c97943ee7304468a09a7f8415ae56, type: 3}
+      StartAmount: 0
+    - Tag: KillPopUp
+      Object: {fileID: 2675220008304047766, guid: cab3c68c3278ded4aa1daad8d51bbd3b, type: 3}
       StartAmount: 0

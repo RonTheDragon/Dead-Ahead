@@ -7,6 +7,7 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
     private SOweapon _weapon;
     private int _weaponLevel;
     [SerializeField] private Transform _weaponShootFrom;
+    [SerializeField] private Transform _weaponModelForAnimation;
     [SerializeField] private LayerMask _attackLayerMask;
     private PlayerWeapon _weaponObject;
     private PlayerMovement _movement;
@@ -30,9 +31,9 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
         _health = refs.PlayerHealth;
         _weaponObject = Instantiate(_weapon.WeaponPrefab, _weaponShootFrom.position, Quaternion.identity, _weaponShootFrom);
         _weaponObject.SetupWeapon(this);
+        _weaponObject.WeaponModel.SetParent(_weaponModelForAnimation);
         _playerAnimator = refs.PlayerAnimator;
         _collider = refs.PlayerCollider;
-        _weaponObject.SetModelActive(false);
     }
 
     public void SetShooting(bool shooting)
@@ -53,7 +54,6 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
         bool b = _weaponObject.TryShoot();
         if (b)
         {
-            _weaponObject.SetModelActive(true);
             CancelInvoke(nameof(StopShootAnimation));
             _playerAnimator.SetBool("Shoot", true);
             Invoke(nameof(StopShootAnimation), _weaponObject.LowerWeaponAfterTime);
@@ -62,7 +62,6 @@ public class PlayerCombat : MonoBehaviour , IPlayerComponent
 
     public void StopShootAnimation()
     {
-        _weaponObject.SetModelActive(false);
         _playerAnimator.SetBool("Shoot", false);
     }
 

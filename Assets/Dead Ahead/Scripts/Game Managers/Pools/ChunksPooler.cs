@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class ChunksPooler : ObjectPooler<LevelChunk>
+
+public class ChunksPooler : ObjectPooler<Chunk>
 {
     
 }

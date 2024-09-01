@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelChunk : MonoBehaviour
+public class LevelChunk : Chunk
 {
     [SerializeField] private float _length;
     [SerializeField] private float _randomExtralength;

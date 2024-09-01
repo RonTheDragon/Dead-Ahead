@@ -165,8 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponData: {fileID: 11400000, guid: 8fc7619acbf959f4b98b2558a6081d4c, type: 2}
   _particleSystem: {fileID: 84008246346519785}
-  _weaponModel: {fileID: 1793846526258790988}
-  _lowerWeaponAfterTime: 1
+  _weaponModel: {fileID: 6561320187404636683}
 --- !u!1 &2798787626605454121
 GameObject:
   m_ObjectHideFlags: 0

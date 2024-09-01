@@ -7,7 +7,7 @@ public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private SOweapon _weaponData;
     [SerializeField] private ParticleSystem _particleSystem;
-    [SerializeField] private GameObject _weaponModel;
+    [SerializeField] private Transform _weaponModel;
     private int _ammo;
     private bool _isShotCooldown;
     private Transform _shootingFrom;
@@ -103,10 +103,7 @@ public class PlayerWeapon : MonoBehaviour
         _ammoText.text = $"{_ammo} / {_weaponData.Upgrades[_weaponLevel].MaxAmmo}";
     }
 
-    public void SetModelActive(bool active)
-    {
-        _weaponModel.SetActive(active);
-    }
-
     public float LowerWeaponAfterTime => _weaponData.Upgrades[_weaponLevel].ShootCooldown+0.01f;
+
+    public Transform WeaponModel => _weaponModel;
 }
